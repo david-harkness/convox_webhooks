@@ -1,2 +1,10 @@
 version: 2
+jobs:
+  build:
+    working_directory: ~/circulate
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - run: echo "hello world"
 
