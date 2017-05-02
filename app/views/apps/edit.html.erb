@@ -1,6 +1,12 @@
-<h1>Editing App</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-5 col-sm-offset-3 col-md-5 col-md-offset-2 main">
 
-<%= render 'form', app: @app %>
+    <h1>Editing App</h1>
 
-<%= link_to 'Show', @app %> |
-<%= link_to 'Back', apps_path %>
+    <%= render 'form', app: @app %>
+
+    <%= link_to 'Back', platform_apps_path(@platform) %>
+    </div>
+  </div>
+</div>

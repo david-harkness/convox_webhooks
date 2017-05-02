@@ -1,5 +1,17 @@
-<h1>New App</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <%=image_tag 'hound', width:'100%', style: 'position:absolute; right: 0' -%>
+      </div>
+    <div class="col-sm-5 col-sm-offset-3 col-md-5 col-md-offset-2 main">
 
-<%= render 'form', app: @app %>
+      <h1 class="page-header">New Convox Application</h1>
 
-<%= link_to 'Back', apps_path %>
+      <%= render 'form', app: @app %>
+      <%= link_to 'Back', platform_apps_path(@platform) %>
+    </div>
+  </div>
+</div>
+
+

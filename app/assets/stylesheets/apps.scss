@@ -1,3 +1,34 @@
 // Place all the styles related to the apps controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+hound-bg {
+  background: image-url('hound.png') no-repeat center center fixed ;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.nav>li>a:focus, .nav>li>a {
+ color: #000;
+  font-size: 12pt;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  color: #fff;
+  font-size: 12pt;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+  font-color: #fff;
+  size: 12pt;
+}
+#navigation,.navbar .navbar-default, .navbar .navbar-inverse{
+  background-color: #2E2F30 !important;
+}
+.btn-standard-size {
+  width: 130px;
+  margin-bottom: 4px;
+}

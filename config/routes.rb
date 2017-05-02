@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
-  resources :apps do
-    collection do
-      get :deploy_process # TODO: needs to be post
+  root to: 'platforms#index'
+  resources :platforms do
+    resources :apps do
+      member do
+        post :deploy_process
+      end
     end
   end
-  resources :platforms
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

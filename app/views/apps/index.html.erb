@@ -1,34 +1,93 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <%=image_tag 'hound', width:'100%', style: 'position:absolute; right: 0; opacity: 0.2; z-index: -1' -%>
+      <a href="/"><h3>Convox Racks</h3></a>
 
-<h1>Pull Request Deployment Managemen</h1>
+      <ul class="nav nav-sidebar hound-bg">
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Branch</th>
-      <th>Rack</th>
-      <th>PR</th>
-      <th colspan="3">Manage Convox</th>
-      <th colspan="3">Manage Information</th>
-    </tr>
-  </thead>
+        <% Platform.all.each do |plat| %>
+            <li class="<%="active" if @platform.id == plat.id -%>" ><a href="<%=platform_apps_path(plat)%>" href=><%=plat.name %><span class="sr-only">(current)</span></a></li>
+        <% end %>
+      </ul>
+      <br/>
+      <br/>
 
-  <tbody>
-    <% @apps.each do |app| %>
-      <tr>
-        <td><%= app.name %></td>
-        <td><%= app.platform_id %></td>
-        <td><%= app.url %></td>
-        <td><%= link_to 'Visit', "http://aws.com" %></td>
-        <td><%= link_to 'Update', "http://aws.com" %></td>
-        <td><%= link_to 'Show', app %></td>-->
-        <td><%= link_to 'Edit', edit_app_path(app) %></td>-->
-        <td><%= link_to 'Destroy', app, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    </div>
 
-<br>
+    <div class="col-sm-7 col-sm-offset-3 col-md-8 col-md-offset-2 main">
+      <h2 class="sub-header">Active Branches: <%=@platform.name %></h2>
 
-<%= link_to 'New App', new_app_path %>
+      <p id="notice"><%= notice %></p>
+
+      <br/>
+      <%= button_to 'New Convox App', new_platform_app_path(@platform), class: 'btn-primary', method: :get %>
+      <br/>
+      <br/>
+
+      <div class="row placeholders">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="text-center">Convox App (edit)</th>
+                <th class="text-center">Branch / PR</th>
+                <th class="text-center"> Visit</th>
+                <th class="text-center" colspan="2">Control Convox</th>
+              </tr>
+            </thead>
+
+            <tbody>
+            <% @apps.each do |app| %>
+              <tr>
+                <td><%= link_to app.name, edit_platform_app_path(@platform, app), style: 'color: #3333ff' %></td>
+                <td><%= app.branch%>&nbsp;/&nbsp;<%= app.pr || 'No PR' %></td>
+                <td><%= link_to truncate(app.url), app.url, target: '_blank', style: 'color: #3333ff' %></td>
+                <td>
+
+                  <div class="btn-group-vertical">
+                    <%= button_to 'Update & Promote', deploy_process_platform_app_path(@platform, app), class:'btn-standard-size btn btn-xs btn-success', data: { confirm: "This will update to latest commit on branch #{app.branch}" } %>
+                    <%= button_to 'Build & Promote', "#",  class: 'btn-standard-size btn btn-warning btn-xs', data: { confirm: 'This will Create the App on convox and deploy. Are you sure?' } %>
+                  </div>
+                  <div class="btn-group-vertical">
+                    <%= button_to 'Reseed DB', deploy_process_platform_app_path(@platform, app), class:'btn-standard-size btn btn-xs btn-warning', data: { confirm: 'This will delete the database and reseed. Are you sure?' } %>
+                    <%= button_to 'Destroy', [@platform, app], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-standard-size btn btn-xs btn-danger' %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+            </table>
+        </div>
+      </div>
+
+      <!--<h1 class="page-header">Dashboard</h1>-->
+
+      <!--<div class="row placeholders">-->
+        <!--<div class="col-xs-6 col-sm-3 placeholder">-->
+          <!--<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">-->
+          <!--<h4>Label</h4>-->
+          <!--<span class="text-muted">Something else</span>-->
+        <!--</div>-->
+        <!--<div class="col-xs-6 col-sm-3 placeholder">-->
+          <!--<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">-->
+          <!--<h4>Label</h4>-->
+          <!--<span class="text-muted">Something else</span>-->
+        <!--</div>-->
+        <!--<div class="col-xs-6 col-sm-3 placeholder">-->
+          <!--<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">-->
+          <!--<h4>Label</h4>-->
+          <!--<span class="text-muted">Something else</span>-->
+        <!--</div>-->
+        <!--<div class="col-xs-6 col-sm-3 placeholder">-->
+          <!--<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">-->
+          <!--<h4>Label</h4>-->
+          <!--<span class="text-muted">Something else</span>-->
+        <!--</div>-->
+      <!--</div>-->
+
+
+
+    </div>
+  </div>
+</div>

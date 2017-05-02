@@ -1,35 +1,38 @@
-<%= form_for(app) do |f| %>
+<%= form_for([@platform, app]) do |f| %>
   <% if app.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(app.errors.count, "error") %> prohibited this app from being saved:</h2>
+      <div id="error_explanation">
+        <h2><%= pluralize(app.errors.count, "error") %> prohibited this app from being saved:</h2>
 
-      <ul>
-      <% app.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+        <ul>
+          <% app.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :branch %>
+    <%= f.text_field :branch, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :platform_id %>
-    <%= f.text_field :platform_id %>
-  </div>
+  <% if app.id.present? %>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control', disabled: true %>
+    </div>
 
-  <div class="field">
-    <%= f.label :integer %>
-    <%= f.text_field :integer %>
-  </div>
+    <div class="form-group">
+      <%= f.label :release %>
+      <%= f.text_field :release, class: 'form-control' %>
+    </div>
 
-  <div class="field">
-    <%= f.label :url %>
-    <%= f.text_field :url %>
-  </div>
+
+    <div class="form-group">
+      <%= f.label :url %>
+      <%= f.text_field :url, class: 'form-control' %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= f.submit %>

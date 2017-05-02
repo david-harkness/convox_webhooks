@@ -17,8 +17,10 @@ ActiveRecord::Schema.define(version: 20170501123548) do
 
   create_table "apps", force: :cascade do |t|
     t.string   "name"
-    t.string   "platform_id"
-    t.string   "integer"
+    t.string   "branch"
+    t.string   "pr"
+    t.string   "release"
+    t.integer  "platform_id"
     t.string   "url"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -28,6 +30,8 @@ ActiveRecord::Schema.define(version: 20170501123548) do
     t.string   "name"
     t.string   "login"
     t.string   "auth_code"
+    t.string   "git_repo"
+    t.string   "git_secret"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
