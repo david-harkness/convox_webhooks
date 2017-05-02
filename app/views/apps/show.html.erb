@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @app.name %>
+</p>
+
+<p>
+  <strong>Platform:</strong>
+  <%= @app.platform_id %>
+</p>
+
+<p>
+  <strong>Integer:</strong>
+  <%= @app.integer %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @app.url %>
+</p>
+
+<%= link_to 'Edit', edit_app_path(@app) %> |
+<%= link_to 'Back', apps_path %>

@@ -14,11 +14,41 @@ services:
     stdin_open: true
     environment:
       - RAILS_ENV=development
+      - CONVOX_HOST
+      - CONVOX_PASSWORD
+    depends_on:
+      - redis
+      - database
     links:
       - database
+      - redis
+    command: ./bin/web
+  sidekiq:
+    depends_on:
+      - 'postgres'
+      - 'redis'
+    links:
+      - database
+      - redis
+    build: .
+    environment:
+      - RAILS_ENV=development
+      - CONVOX_HOST
+      - CONVOX_PASSWORD
+    command: sidekiq
+    #command: sidekiq -C config/sidekiq.yml.erb
+    volumes:
+      - '/usr/src/terminus'
+    env_file:
+      - '.env'
+
   database:
     image: convox/postgres
     volumes:
       - /var/lib/postgresql/data
     ports:
-      - 5433:5432
+      - 5434:5432
+  redis:
+    image: convox/redis
+    ports:
+      - 6379

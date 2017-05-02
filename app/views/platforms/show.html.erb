@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @platform.name %>
+</p>
+
+<p>
+  <strong>Login:</strong>
+  <%= @platform.login %>
+</p>
+
+<p>
+  <strong>Auth code:</strong>
+  <%= @platform.auth_code %>
+</p>
+
+<%= link_to 'Edit', edit_platform_path(@platform) %> |
+<%= link_to 'Back', platforms_path %>

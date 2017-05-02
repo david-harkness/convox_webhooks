@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Pull Request Deployment Managemen</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Branch</th>
+      <th>Rack</th>
+      <th>PR</th>
+      <th colspan="3">Manage Convox</th>
+      <th colspan="3">Manage Information</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @apps.each do |app| %>
+      <tr>
+        <td><%= app.name %></td>
+        <td><%= app.platform_id %></td>
+        <td><%= app.url %></td>
+        <td><%= link_to 'Visit', "http://aws.com" %></td>
+        <td><%= link_to 'Update', "http://aws.com" %></td>
+        <td><%= link_to 'Show', app %></td>-->
+        <td><%= link_to 'Edit', edit_app_path(app) %></td>-->
+        <td><%= link_to 'Destroy', app, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New App', new_app_path %>
