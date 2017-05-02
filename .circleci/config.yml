@@ -9,9 +9,9 @@ jobs:
       - run: echo "hello world"
       - deploy:
         name: "Convox Deploy"
-        command
-      - convox login console.convox.com
-      - convox switch org/rack
-      - convox deploy --app app
-      - convox run web rake db:migrate --app app
+        commands:
+          - convox login console.convox.com
+          - convox switch personal/staging4
+          - convox deploy --app hound
+          - convox run web rake db:migrate --app hound
 
