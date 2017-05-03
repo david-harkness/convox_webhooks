@@ -14,10 +14,13 @@
       <h3>Actions</h3>
       <br/>
       <div class="btn-group-vertical">
-        <%= button_to 'Update & Promote', deploy_process_platform_app_path(@platform, @app), class:'btn-larger-size btn btn btn-success', data: { confirm: "This will update to latest commit on branch #{@app.branch}" } %>
-        <%= button_to 'Build & Promote', create_convox_application_platform_app_path(@platform, @app),  class: 'btn-larger-size btn btn-warning btn', data: { confirm: 'This will Create the App on convox and deploy. Are you sure?' } %>
-        <%= button_to 'Reseed DB', reseed_platform_app_path(@platform, @app), class:'btn-larger-size btn btn btn-warning', data: { confirm: 'This will delete the database and reseed. Are you sure?' } %>
-        <%= button_to 'Destroy', [@platform, @app], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-larger-size btn btn btn-danger' %>
+        <% if @app.created %>
+          <%= button_to 'Update from Github', deploy_process_platform_app_path(@platform, @app), class:'btn-larger-size btn btn btn-success', data: { confirm: "This will update to latest commit on branch #{@app.branch}" } %>
+          <%= button_to 'Reseed DB', reseed_platform_app_path(@platform, @app), class:'btn-larger-size btn btn btn-warning', data: { confirm: 'This will delete the database and reseed. Are you sure?' } %>
+        <% else %>
+          <%= button_to 'Create Convox Application', create_convox_application_platform_app_path(@platform, @app),  class: 'btn-larger-size btn btn-warning btn', data: { confirm: 'This will Create the App on convox and deploy. Are you sure?' } %>
+        <% end %>
+        <%= button_to 'Destroy', '#', data: { confirm: 'Nope!' }, class: 'btn-larger-size btn btn btn-danger' %>
       </div>
 
 
@@ -37,6 +40,11 @@
       <p>
         <strong>Platform:</strong>
         <%= @app.platform.name %>
+      </p>
+
+      <p>
+        <strong>Created:</strong>
+        <%= !!@app.created %>
       </p>
 
       <p>

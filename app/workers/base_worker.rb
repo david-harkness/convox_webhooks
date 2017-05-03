@@ -22,11 +22,12 @@ class BaseWorker
 
   def run_command(cmd, i)
     cmd = "cd /usr/src/terminus && #{cmd}"
+    command = @job.commands.create(cli: cmd, output: '', step: i )
     STDOUT << cmd
     output = `#{cmd}`
     STDOUT << output
 
-    @job.commands.create(cli: cmd, output: output, status_code: $?, success: $?.success?, step: i)
+    command.update(output: output, status_code: $?, success: $?.success?)
 
     unless $?.success?
       STDOUT << "Breaking!"

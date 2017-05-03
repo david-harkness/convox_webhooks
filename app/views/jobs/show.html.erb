@@ -18,6 +18,8 @@
     <br/>
     <b>Status</b> <%=@job.status -%>
     <br/>
+    <b>Progress</b> <%=number_with_precision(@job.commands.count*100 / @job.steps.to_f , :precision => 0) -%> %
+    <br/>
     <hr/>
 
     <% @job.commands.order('id').each do |cli| %>
