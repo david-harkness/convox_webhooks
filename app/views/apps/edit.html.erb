@@ -4,14 +4,19 @@
       <%=image_tag 'hound', width:'100%', style: 'position:absolute; right: 0; opacity: 0.2; z-index: -1' -%>
 
       <h3>Links</h3>
-      <blockquote>
-        <%= link_to 'Back', platform_app_path(@platform, @app) %>
-      </blockquote>
+      <ul class="nav nav-sidebar ">
+        <li><%= link_to 'Back', platform_app_path(@platform, @app) %></li>
+      </ul>
     </div>
     <div class="col-sm-5 col-sm-offset-3 col-md-5 col-md-offset-2 main">
 
 
-    <h1>Editing App</h1>
+    <h1>Edit App</h1>
+    <p>
+      Branch name must match github exactly
+      <br/>
+      App name is auto genereated from branch
+    </p>
 
     <%= render 'form', app: @app %>
 

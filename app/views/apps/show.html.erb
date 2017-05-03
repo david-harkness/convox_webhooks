@@ -4,20 +4,19 @@
       <%=image_tag 'hound', width:'100%', style: 'position:absolute; right: 0; opacity: 0.2; z-index: -1' -%>
 
       <h3>Links</h3>
-      <blockquote>
-        <%= link_to 'Back', platform_apps_path(@platform) %>
-        <br/>
-        <br/>
-        <%= link_to "Edit", edit_platform_app_path(@platform, @app), style: 'color: #3333ff' %>
-      </blockquote>
+      <ul class="nav nav-sidebar ">
+        <li><%= link_to 'Back', platform_apps_path(@platform) %></li>
+        <li><%= link_to "Edit", edit_platform_app_path(@platform, @app), style: 'color: #3333ff' %></li>
+      </ul>
 
-      <h3>Commands</h3>
       <br/>
+      <br/>
+      <h3>Actions</h3>
       <br/>
       <div class="btn-group-vertical">
         <%= button_to 'Update & Promote', deploy_process_platform_app_path(@platform, @app), class:'btn-larger-size btn btn btn-success', data: { confirm: "This will update to latest commit on branch #{@app.branch}" } %>
-        <%= button_to 'Build & Promote', "#",  class: 'btn-larger-size btn btn-warning btn', data: { confirm: 'This will Create the App on convox and deploy. Are you sure?' } %>
-        <%= button_to 'Reseed DB', deploy_process_platform_app_path(@platform, @app), class:'btn-larger-size btn btn btn-warning', data: { confirm: 'This will delete the database and reseed. Are you sure?' } %>
+        <%= button_to 'Build & Promote', create_convox_application_platform_app_path(@platform, @app),  class: 'btn-larger-size btn btn-warning btn', data: { confirm: 'This will Create the App on convox and deploy. Are you sure?' } %>
+        <%= button_to 'Reseed DB', reseed_platform_app_path(@platform, @app), class:'btn-larger-size btn btn btn-warning', data: { confirm: 'This will delete the database and reseed. Are you sure?' } %>
         <%= button_to 'Destroy', [@platform, @app], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-larger-size btn btn btn-danger' %>
       </div>
 
@@ -29,6 +28,7 @@
     <div class="col-sm-5 col-sm-offset-3 col-md-5 col-md-offset-2 main">
       <h2 class="sub-header"><%=@app.name %></h2>
 
+      <p id="notice"><%= notice %></p>
       <p>
         <strong>Name:</strong>
         <%= @app.name %>
@@ -62,12 +62,12 @@
             <tbody>
             <% @app.jobs.order('id desc').each do |job| %>
                 <tr>
-                  <td><%=link_to 'view', platform_app_job_path(@platform, @app, job) -%></td>
+                  <td><%=link_to 'view',  platform_app_job_path(@platform, @app, job), class: 'btn btn-info btn-xs', method: :get -%></td>
                   <td><%=job.job_type -%></td>
                   <td><%=job.status-%></td>
                   <td><%=job.complete-%></td>
-                  <td><%=job.created_at-%></td>
-                  <td><%=job.updated_at -%></td>
+                  <td><%=job.created_at.to_s(:db)-%></td>
+                  <td><%=job.updated_at.to_s(:dbk) -%></td>
                 </tr>
             <% end %>
             </tbody>

@@ -1,6 +1,6 @@
 class AppsController < ApplicationController
   before_action :set_platform
-  before_action :set_app, only: [:show, :edit, :update, :destroy, :deploy_process, ]
+  before_action :set_app, only: [:show, :edit, :update, :destroy, :deploy_process, :reseed, :create_convox_application ]
 
   # GET /apps
   # GET /apps.json
@@ -25,7 +25,19 @@ class AppsController < ApplicationController
   def deploy_process
     flash[:notice] = "Updating and Promoting application: #{@app.name}"
     DeployProcessWorker.perform_async(@app.id)
-    redirect_to platform_apps_path(@platform)
+    redirect_to platform_app_path(@platform, @app)
+  end
+
+  def reseed
+    flash[:notice] = "Reseeding Application: #{@app.name}"
+    ReseedDatabaseWorker.perform_async(@app.id)
+    redirect_to platform_app_path(@platform, @app)
+  end
+
+  def create_convox_application
+    flash[:notice] = "Creating Application: #{@app.name}"
+    CreateConvoxApplicationWorker.perform_async(@app.id)
+    redirect_to platform_app_path(@platform, @app)
   end
 
   # POST /apps

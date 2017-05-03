@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       end
       member do
         post :deploy_process
+        post :reseed
+        post :create_convox_application
       end
     end
   end
