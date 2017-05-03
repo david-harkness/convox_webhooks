@@ -1,12 +1,20 @@
 <div class="container-fluid">
   <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <%=image_tag 'hound', width:'100%', style: 'position:absolute; right: 0; opacity: 0.2; z-index: -1' -%>
+
+      <h3>Links</h3>
+      <blockquote>
+        <%= link_to 'Back', platform_app_path(@platform, @app) %>
+      </blockquote>
+    </div>
     <div class="col-sm-5 col-sm-offset-3 col-md-5 col-md-offset-2 main">
+
 
     <h1>Editing App</h1>
 
     <%= render 'form', app: @app %>
 
-    <%= link_to 'Back', platform_apps_path(@platform) %>
     </div>
   </div>
 </div>

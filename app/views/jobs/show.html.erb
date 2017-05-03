@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <%=image_tag 'hound', width:'100%', style: 'position:absolute; right: 0; opacity: 0.2; z-index: -1' -%>
+
+      <h3>Links</h3>
+      <blockquote>
+        <%= link_to 'Back', platform_app_path(@platform, @app) %>
+      </blockquote>
+    </div>
+
+  </div>
+  <div class=" col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="sub-header">Job: <%="#{@job.id} - #{@job.job_type}" %></h2>
+    <%= link_to '<< Back', platform_app_path(@platform, @app) %>
+    <br/>
+    <br/>
+    <b>Run at</b> <%=@job.created_at -%>
+    <br/>
+    <b>Status</b> <%=@job.status -%>
+    <br/>
+    <hr/>
+
+    <% @job.commands.order('id').each do |cli| %>
+        <div class="row">
+          <div class="col-sm-3 col-md-2 ">
+            <ul>
+              <li><b>Ran: </b><%=cli.created_at-%></li>
+              <li><b>Step:</b><%=cli.step-%></li>
+            </ul>
+          </div>
+
+          <div class="col-sm-9 col-md-9 main">
+            <div class="alert <%= cli.status_code == 0 ? 'alert-success' : 'alert-danger' %>" role="alert">
+              <b><%= cli.cli %></b>
+            </div>
+            <pre style="background-color:#333;color:#eee"><%=cli.output %></pre>
+          </div>
+        </div>
+        <hr/>
+    <% end %>
+  </div>
+</div>

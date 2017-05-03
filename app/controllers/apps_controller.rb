@@ -1,6 +1,6 @@
 class AppsController < ApplicationController
   before_action :set_platform
-  before_action :set_app, only: [:show, :edit, :update, :destroy, :deploy_process]
+  before_action :set_app, only: [:show, :edit, :update, :destroy, :deploy_process, ]
 
   # GET /apps
   # GET /apps.json
@@ -15,6 +15,10 @@ class AppsController < ApplicationController
 
   # GET /apps/1/edit
   def edit
+  end
+
+  def show
+    @jobs = @app.jobs
   end
 
   # POST /platforms/1/deploy_process

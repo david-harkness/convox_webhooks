@@ -1,5 +1,6 @@
 class App < ApplicationRecord
   belongs_to :platform
+  has_many :jobs
 
   validates :branch, uniqueness: true,  presence: true, length: {minimum: 4}
   validates :name, uniqueness: true, length: {minimum: 4, maximum: 30}, allow_blank: true

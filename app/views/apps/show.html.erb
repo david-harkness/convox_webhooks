@@ -1,24 +1,82 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <%=image_tag 'hound', width:'100%', style: 'position:absolute; right: 0; opacity: 0.2; z-index: -1' -%>
 
-<p>
-  <strong>Name:</strong>
-  <%= @app.name %>
-</p>
+      <h3>Links</h3>
+      <blockquote>
+        <%= link_to 'Back', platform_apps_path(@platform) %>
+        <br/>
+        <br/>
+        <%= link_to "Edit", edit_platform_app_path(@platform, @app), style: 'color: #3333ff' %>
+      </blockquote>
 
-<p>
-  <strong>Platform:</strong>
-  <%= @app.platform_id %>
-</p>
+      <h3>Commands</h3>
+      <br/>
+      <br/>
+      <div class="btn-group-vertical">
+        <%= button_to 'Update & Promote', deploy_process_platform_app_path(@platform, @app), class:'btn-larger-size btn btn btn-success', data: { confirm: "This will update to latest commit on branch #{@app.branch}" } %>
+        <%= button_to 'Build & Promote', "#",  class: 'btn-larger-size btn btn-warning btn', data: { confirm: 'This will Create the App on convox and deploy. Are you sure?' } %>
+        <%= button_to 'Reseed DB', deploy_process_platform_app_path(@platform, @app), class:'btn-larger-size btn btn btn-warning', data: { confirm: 'This will delete the database and reseed. Are you sure?' } %>
+        <%= button_to 'Destroy', [@platform, @app], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-larger-size btn btn btn-danger' %>
+      </div>
 
-<p>
-  <strong>Integer:</strong>
-  <%= @app.integer %>
-</p>
 
-<p>
-  <strong>Url:</strong>
-  <%= @app.url %>
-</p>
+      <br/>
 
-<%= link_to 'Edit', edit_app_path(@app) %> |
-<%= link_to 'Back', apps_path %>
+    </div>
+
+    <div class="col-sm-5 col-sm-offset-3 col-md-5 col-md-offset-2 main">
+      <h2 class="sub-header"><%=@app.name %></h2>
+
+      <p>
+        <strong>Name:</strong>
+        <%= @app.name %>
+      </p>
+
+      <p>
+        <strong>Platform:</strong>
+        <%= @app.platform.name %>
+      </p>
+
+      <p>
+        <strong>Url:</strong>
+        <%= @app.url %>
+      </p>
+
+      <h3>Jobs</h3>
+      <div class="row placeholders">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th class="text-center"></th>
+              <th class="text-center">Job Type</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Complete</th>
+              <th class="text-center">Started At</th>
+              <th class="text-center">Updated At</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% @app.jobs.order('id desc').each do |job| %>
+                <tr>
+                  <td><%=link_to 'view', platform_app_job_path(@platform, @app, job) -%></td>
+                  <td><%=job.job_type -%></td>
+                  <td><%=job.status-%></td>
+                  <td><%=job.complete-%></td>
+                  <td><%=job.created_at-%></td>
+                  <td><%=job.updated_at -%></td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

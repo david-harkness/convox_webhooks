@@ -30,7 +30,7 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th class="text-center">Convox App (edit)</th>
+                <th class="text-center">Convox App </th>
                 <th class="text-center">Branch / PR</th>
                 <th class="text-center"> Visit</th>
                 <th class="text-center" colspan="2">Control Convox</th>
@@ -40,7 +40,7 @@
             <tbody>
             <% @apps.each do |app| %>
               <tr>
-                <td><%= link_to app.name, edit_platform_app_path(@platform, app), style: 'color: #3333ff' %></td>
+                <td><%= link_to app.name, platform_app_path(@platform, app), style: 'color: #3333ff' %></td>
                 <td><%= app.branch%>&nbsp;/&nbsp;<%= app.pr || 'No PR' %></td>
                 <td><%= link_to truncate(app.url), app.url, target: '_blank', style: 'color: #3333ff' %></td>
                 <td>
