@@ -32,7 +32,12 @@
           </div>
 
           <div class="col-sm-9 col-md-9 main">
-            <div class="alert <%= cli.status_code == 0 ? 'alert-success' : 'alert-danger' %>" role="alert">
+            <% if cli.status_code.nil? %>
+                <div class="alert alert-info" role="alert">
+            <% else %>
+
+              <div class="alert <%= cli.status_code == 0 ? 'alert-success' : 'alert-danger' %>" role="alert">
+            <% end %>
               <b><%= cli.cli %></b>
             </div>
             <pre style="background-color:#333;color:#eee"><%=cli.output %></pre>

@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20170503195952) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.boolean  "created",     default: false, null: false
-    t.string   "status",      default: "f",   null: false
+    t.string   "status",      default: "",   null: false
   end
 
   create_table "commands", force: :cascade do |t|
