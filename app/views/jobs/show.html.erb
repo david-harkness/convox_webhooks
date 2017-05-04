@@ -24,14 +24,20 @@
 
     <% @job.commands.order('id').each do |cli| %>
         <div class="row">
-          <div class="col-sm-3 col-md-2 ">
-            <ul>
-              <li><b>Ran: </b><%=cli.created_at-%></li>
-              <li><b>Step:</b><%=cli.step-%></li>
-            </ul>
+          <div class="col-sm-2 col-md-2 ">
+              <b>Ran: </b><%=cli.created_at.to_s(:short)-%>
+            <br/>
+              <% if cli.status_code.nil? %>
+                  <b>Time: </b><%=distance_of_time_in_words(DateTime.now.to_i - cli.created_at.to_i) %>
+              <% else %>
+                  <b>Time: </b><%=distance_of_time_in_words(cli.updated_at.to_i - cli.created_at.to_i) %>
+              <% end %>
+            <br/>
+              <b>Step: </b><%=cli.step-%></li>
+            <br/>
           </div>
 
-          <div class="col-sm-9 col-md-9 main">
+          <div class="col-sm-10 col-md-10 main">
             <% if cli.status_code.nil? %>
                 <div class="alert alert-info" role="alert">
             <% else %>
@@ -40,7 +46,7 @@
             <% end %>
               <b><%= cli.cli %></b>
             </div>
-            <pre style="background-color:#333;color:#eee"><%=cli.output %></pre>
+            <pre style="max-height: 400px; background-color:#333;color:#eee"><%=cli.output %></pre>
           </div>
         </div>
         <hr/>

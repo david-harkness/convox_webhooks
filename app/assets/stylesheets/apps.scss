@@ -36,3 +36,10 @@ hound-bg {
   width: 200px;
   margin-bottom: 10px;
 }
+pre {
+  overflow-x: auto;
+}
+pre code {
+  overflow-wrap: normal;
+  white-space: pre;
+}

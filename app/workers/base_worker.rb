@@ -13,6 +13,7 @@ class BaseWorker
 
   def run_commands
     @convox_app.update(status: 'running')
+    `mkdir -p /usr/src/terminus/#{@app_name}`
     @job = Job.create(job_type: self.class.to_s, status: 'starting', app_id: @convox_app.id, steps: @items.size)
     @items.each_with_index do |cmd, i|
       return false unless run_command(cmd, i)
@@ -21,14 +22,14 @@ class BaseWorker
   end
 
   def run_command(cmd, i)
-    cmd = "cd /usr/src/terminus && #{cmd}"
+    cmd = "cd /usr/src/terminus/#{@app_name} && #{cmd}"
     command = @job.commands.create(cli: cmd, output: '', step: i )
     STDOUT << cmd
     output = `#{cmd}`
     STDOUT << output
-
     command.update(output: output, status_code: $?, success: $?.success?)
 
+    # Break if Command fails for any reason
     unless $?.success?
       STDOUT << "Breaking!"
       @job.update(status: 'failed')
